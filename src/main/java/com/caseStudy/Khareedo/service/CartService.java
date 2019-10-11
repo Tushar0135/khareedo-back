@@ -3,6 +3,7 @@ package com.caseStudy.Khareedo.service;
 import com.caseStudy.Khareedo.model.Cart;
 import com.caseStudy.Khareedo.model.Users;
 import com.caseStudy.Khareedo.model.items;
+import com.caseStudy.Khareedo.model.orderhistory;
 import com.caseStudy.Khareedo.repo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,8 @@ public class CartService {
 
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    OrderHistoryRepo orderHistoryRepo;
 
     public String addtocart(Long userid, Long product_id) {
         Optional<items> item = itemRepository.findById(product_id);
@@ -60,25 +63,20 @@ public class CartService {
         }
         return "successfully removed";
     }
-
-//    public Cart addProduct(Long userid, Long product_id) {
-//        Optional<items> item = itemRepository.findById(product_id);
-//        Optional<Users> user = userRepository.findById(userid);
-//
-//        if (cartRepository.findByUsersAndItems(user, item).isPresent()) {
-//            Cart cart =  cartRepository.findByUsersAndItems(user, item).get();
-//            cart.setQuantity(cart.getQuantity() + 1);
-//            cartRepository.save(cart);
-//        } else {
-//            Cart c = new Cart(item, user, 1);
-//            cartRepository.save(c);
-//        }
-//        return cartRepository.findByUsersAndItems(user, item).get();
-//    }
-
-
-
     public double checkout(Long getuserid, Principal principal) {
+        Optional<Users> users=userRepository.findById(getuserid);
+        List<Cart> cartList= cartRepository.findAllByUsers(users.get());
+        for(Cart cart:cartList){
+            orderhistory order =new orderhistory();
+            order.setItem(cart.getItems());
+            double p = cart.getItems().getPrice();
+            order.setQuantity(cart.getQuantity());
+            order.setPrice(cart.getQuantity());
+            order.setUser(cart.getUsers());
+            order.setDate();
+            orderHistoryRepo.save(order);
+        }
+        clearcart(getuserid, principal);
         return 0;
     }
     //

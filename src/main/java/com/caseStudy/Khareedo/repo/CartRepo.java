@@ -16,4 +16,6 @@ public interface CartRepo extends CrudRepository<Cart,Long>
     List<Cart> findByUsersAndItems_Active(Optional<Users> users, int i);
 
     Optional<Cart> findByUsersAndItems(Optional<Users> user, Optional<items> item);
+
+    List<Cart> findAllByUsers(Users users);
 }
