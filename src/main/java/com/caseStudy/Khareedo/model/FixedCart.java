@@ -1,4 +1,4 @@
 package com.caseStudy.Khareedo.model;
 
-public class fixedcart {
+public class FixedCart {
 }

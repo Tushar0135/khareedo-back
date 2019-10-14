@@ -5,74 +5,43 @@ import java.io.Serializable;
 
 @Entity
 public class Users implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-    private String firstname;
-    private String lastname;
-    private long mobno;
+    private Long userId;
+
+    @Column(columnDefinition = "integer default 1")
+    private Integer active;
+
+    @Column(nullable = false)
     private String email;
-    private String role;
+
+    private String name;
+
+    @Column(nullable = false)
     private String password;
 
-    public Users()
-    {
+    @Column(columnDefinition = "varchar(255) default 'user'")
+    private String role;
+
+    public Users() {
 
     }
 
-    public String getRole() {
-        return role;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
-
-    public long getId() {
-        return id;
+    public Integer getActive() {
+        return active;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    @Column(nullable = false, columnDefinition = "int default '1'")
-    private int active;
-
-
-    public String getFirstname() {
-        return firstname;
-    }
-
-    public Users(String firstname, String lastname, long mobno, String email, String role, String password, int active) {
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.mobno = mobno;
-        this.email = email;
-        this.role = role;
-        this.password = password;
+    public void setActive(Integer active) {
         this.active = active;
-    }
-
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
-
-    public String getLastname() {
-        return lastname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
-
-    public long getMobno() {
-        return mobno;
-    }
-
-    public void setMobno(long mobno) {
-        this.mobno = mobno;
     }
 
     public String getEmail() {
@@ -83,6 +52,14 @@ public class Users implements Serializable {
         this.email = email;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getPassword() {
         return password;
     }
@@ -91,12 +68,11 @@ public class Users implements Serializable {
         this.password = password;
     }
 
-    public int getActive() {
-        return active;
+    public String getRole() {
+        return role;
     }
 
-    public void setActive(int active) {
-        this.active = active;
+    public void setRole(String role) {
+        this.role = role;
     }
-
 }

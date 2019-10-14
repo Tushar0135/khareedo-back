@@ -16,32 +16,34 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import javax.sql.DataSource;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-@EnableGlobalAuthentication
 @EnableWebSecurity
 @Configuration
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private DataSource dataSource;
+
     @Autowired
-    public void globalSecurityConfig(AuthenticationManagerBuilder auth) throws Exception{
-        auth
-                .jdbcAuthentication().dataSource(dataSource)
-                .usersByUsernameQuery("select email, password , active from Users where email = ?")
-                .authoritiesByUsernameQuery("select email, role from Users where email = ?");
+    public void globalSecurityConfig(AuthenticationManagerBuilder auth) throws Exception {
+        auth.
+                jdbcAuthentication().dataSource(dataSource)
+                .usersByUsernameQuery("select email,password,active from users where email=?")
+                .authoritiesByUsernameQuery("select email,role from users where email =?");
     }
+
     @Override
-    protected void configure(HttpSecurity http) throws Exception{
+    protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests().antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                .antMatchers("/signup").permitAll()
-                .antMatchers("/home").permitAll()
-                .antMatchers("/users/adduser").permitAll()
-                .anyRequest().authenticated()
-                .and().httpBasic();
+                .antMatchers("/admin/**").hasAuthority("admin")
+                .antMatchers("/product/**").permitAll()
+                .antMatchers("/user/sign-up").permitAll()
+                .anyRequest().authenticated().and().httpBasic();
         http.cors();
     }
+
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return NoOpPasswordEncoder.getInstance();
     }
+
 }

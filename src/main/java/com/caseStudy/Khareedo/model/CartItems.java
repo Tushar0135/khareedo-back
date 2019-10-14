@@ -1,4 +1,4 @@
 package com.caseStudy.Khareedo.model;
 
-public class cartitems {
+public class CartItems {
 }

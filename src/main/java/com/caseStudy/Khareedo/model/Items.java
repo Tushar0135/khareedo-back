@@ -4,35 +4,34 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "product_details")
-@EntityListeners(AuditingEntityListener.class)
-public class items implements Serializable
-{
-    public items() {
-    }
+public class Items implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long productId;
+
     private String name;
-    private double price;
+    private Double price;
     private String details;
     private String image;
     private String category;
-    private String subcategory;
+    private String subCategory;
+    @Column(nullable = false, columnDefinition = "Integer default '1'")
+    private Integer active;
 
-    public items(Long id,String name, double price, String details, String image, String category, String subcategory, int active) {
-        this.id=id;
-        this.name = name;
-        this.price = price;
-        this.details = details;
-        this.image = image;
-        this.category = category;
-        this.subcategory = subcategory;
-        this.active = active;
+
+    public Items() {
     }
-    @Column(nullable = false, columnDefinition ="int default '1'")
-    private int active;
-     public String getName() {
+
+    public Long getProductId() {
+        return productId;
+    }
+
+    public void setProductId(Long productId) {
+        this.productId = productId;
+    }
+
+    public String getName() {
         return name;
     }
 
@@ -40,11 +39,11 @@ public class items implements Serializable
         this.name = name;
     }
 
-    public double getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
@@ -72,19 +71,24 @@ public class items implements Serializable
         this.category = category;
     }
 
-    public String getSubcategory() {
-        return subcategory;
+    public String getSubCategory() {
+        return subCategory;
     }
 
-    public void setSubcategory(String subcategory) {
-        this.subcategory = subcategory;
+    public void setSubCategory(String subCategory) {
+        this.subCategory = subCategory;
     }
 
-    public int getActive() {
+    public Integer getActive() {
         return active;
     }
 
-    public void setActive(int active) {
+    public void setActive(Integer active) {
         this.active = active;
+    }
+
+    @Override
+    public String toString() {
+        return productId + " " + name;
     }
 }

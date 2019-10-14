@@ -1,24 +1,25 @@
 package com.caseStudy.Khareedo.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
-public class Cart {
+public class Cart implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne
-    private items items;
-    @ManyToOne
-    private Users users;
-    private int quantity;
-    public Cart()
-    {}
 
-    public Cart(com.caseStudy.Khareedo.model.items items, Users users, int quantity) {
-        this.items = items;
-        this.users = users;
-        this.quantity = quantity;
+    @ManyToOne
+    private Users user;
+
+    @ManyToOne
+    private Items item;
+
+    @Column(nullable = false)
+    private Integer quantity;
+
+    public Cart() {
     }
 
     public Long getId() {
@@ -29,27 +30,27 @@ public class Cart {
         this.id = id;
     }
 
-    public com.caseStudy.Khareedo.model.items getItems() {
-        return items;
+    public Users getUser() {
+        return user;
     }
 
-    public Users getUsers() {
-        return users;
+    public void setUser(Users user) {
+        this.user = user;
     }
 
-    public void setUsers(Users users) {
-        this.users = users;
+    public Items getItem() {
+        return item;
     }
 
-    public void setItems(com.caseStudy.Khareedo.model.items items) {
-        this.items = items;
+    public void setItem(Items item) {
+        this.item = item;
     }
 
-    public int getQuantity() {
+    public Integer getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
 }
