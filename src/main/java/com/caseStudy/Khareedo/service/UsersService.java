@@ -15,11 +15,11 @@ import java.security.Principal;
 import java.util.List;
 
 @Service
-public class UsersSer {
+public class UsersService {
     private UsersRepo usersRepo;
 
     @Autowired
-    public UsersSer(UsersRepo usersRepo) {
+    public UsersService(UsersRepo usersRepo) {
         this.usersRepo = usersRepo;
     }
 

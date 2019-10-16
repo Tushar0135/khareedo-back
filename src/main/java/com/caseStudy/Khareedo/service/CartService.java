@@ -15,15 +15,15 @@ import java.util.List;
 import java.util.Date;
 
 @Service
-public class CartSer {
+public class CartService {
     private CartRepo cartRepository;
     private UsersRepo usersRepo;
     private ItemsRepo itemsRepo;
     private OrdersRepo ordersRepo;
 
     @Autowired
-    public CartSer(CartRepo cartRepository, UsersRepo usersRepo, ItemsRepo itemsRepo,
-                   OrdersRepo ordersRepo) {
+    public CartService(CartRepo cartRepository, UsersRepo usersRepo, ItemsRepo itemsRepo,
+                       OrdersRepo ordersRepo) {
         this.cartRepository = cartRepository;
         this.usersRepo = usersRepo;
         this.itemsRepo = itemsRepo;

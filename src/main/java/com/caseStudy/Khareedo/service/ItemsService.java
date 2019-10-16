@@ -1,18 +1,22 @@
 package com.caseStudy.Khareedo.service;
 
+import com.caseStudy.Khareedo.controller.ItemsCon;
 import com.caseStudy.Khareedo.model.Items;
 import com.caseStudy.Khareedo.repo.ItemsRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
-public class ItemsSer {
+public class ItemsService {
     private ItemsRepo itemsRepo;
 
     @Autowired
-    public ItemsSer(ItemsRepo itemsRepo) {
+    public ItemsService(ItemsRepo itemsRepo) {
         this.itemsRepo = itemsRepo;
     }
 
@@ -29,7 +33,20 @@ public class ItemsSer {
         itemsRepo.deleteAll();
         return true;
     }
-
+    public Set<Items> getSearchedItems(String value){
+        ArrayList<Items> items=(ArrayList<Items>) itemsRepo.findAll();
+        Set<Items> result=new HashSet<>();
+        for (int i=0;i<items.size();i++){
+            if(items.get(i).getName().toLowerCase().contains(value.toLowerCase())||
+                    items.get(i).getCategory().contains(value.toLowerCase())||
+                    items.get(i).getDetails().toLowerCase().contains(value.toLowerCase())||
+                    items.get(i).getSubCategory().toLowerCase().contains(value.toLowerCase())){
+                result.add(items.get(i));
+            }
+        }
+            System.out.println("SearchResult "+result);
+            return result;
+    }
     public List<Items> getItems() {
         return itemsRepo.findAll();
     }
@@ -42,9 +59,6 @@ public class ItemsSer {
         return itemsRepo.findAllByCategoryAndPriceBetween(category, lower, higher);
     }
 
-    public List<Items> getByPrice(Double lower, Double higher) {
-        return itemsRepo.findAllByPriceBetween(lower, higher);
-    }
 
     public Items getById(Long id) {
         if (itemsRepo.findById(id).isPresent()) {
@@ -52,9 +66,11 @@ public class ItemsSer {
         }
         return null;
     }
-
     public List<Items> deleteItem(Long id) {
         itemsRepo.deleteById(id);
+        return itemsRepo.findAll();
+    }
+    public List<Items> findAll(){
         return itemsRepo.findAll();
     }
 
@@ -65,4 +81,5 @@ public class ItemsSer {
         itemsRepo.saveAndFlush(newItem);
         return newItem;
     }
+
 }

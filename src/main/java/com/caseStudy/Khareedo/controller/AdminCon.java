@@ -2,8 +2,8 @@ package com.caseStudy.Khareedo.controller;
 
 import com.caseStudy.Khareedo.model.Items;
 import com.caseStudy.Khareedo.model.Users;
-import com.caseStudy.Khareedo.service.ItemsSer;
-import com.caseStudy.Khareedo.service.UsersSer;
+import com.caseStudy.Khareedo.service.ItemsService;
+import com.caseStudy.Khareedo.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,63 +12,63 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping(path = "/admin")
-public class Admin {
-    private UsersSer usersSer;
-    private ItemsSer itemsSer;
+public class AdminCon {
+    private UsersService usersService;
+    private ItemsService itemsService;
 
     @Autowired
-    public Admin(UsersSer usersSer, ItemsSer itemsSer) {
-        this.usersSer = usersSer;
-        this.itemsSer = itemsSer;
+    public AdminCon(UsersService usersService, ItemsService itemsService) {
+        this.usersService = usersService;
+        this.itemsService = itemsService;
     }
 
     @PostMapping("/add-user")
     public Boolean addUser(@RequestBody Users users) {
-        return usersSer.addUser(users);
+        return usersService.addUser(users);
     }
 
     @DeleteMapping("/remove-user")
     public List<Users> removeUser(@RequestParam("id") Long id) {
-        return usersSer.deleteUser(id);
+        return usersService.deleteUser(id);
     }
 
     @PutMapping("/edit-user")
     public List<Users> editUser(@RequestBody Users users, @RequestParam("id") Long id) {
-        return usersSer.editUser(users, id);
+        return usersService.editUser(users, id);
     }
 
     @GetMapping("/get-user")
     public Users getUserById(@RequestParam("id") Long id) {
-        return usersSer.getUserById(id);
+        return usersService.getUserById(id);
     }
 
     @GetMapping("/get-users")
     public List<Users> getUsers() {
-        return usersSer.getUsers();
+        return usersService.getUsers();
     }
 
     @PostMapping("/add-item")
     public Boolean addItem(@RequestBody Items items) {
-        return itemsSer.addItem(items);
+        return itemsService.addItem(items);
     }
 
     @DeleteMapping("/remove-item")
     public List<Items> removeItem(@RequestParam("id") Long id) {
-        return itemsSer.deleteItem(id);
+        return itemsService.deleteItem(id);
     }
 
     @PutMapping("/edit-item")
     public Items editItem(@RequestBody Items items, @RequestParam("id") Long id) {
-        return itemsSer.editItem(items, id);
+        return itemsService.editItem(items, id);
     }
 
     @GetMapping("/get-item")
     public Items getItemById(@RequestParam("id") Long id) {
-        return itemsSer.getById(id);
+        return itemsService.getById(id);
     }
 
     @GetMapping("/get-items")
     public List<Items> getItems() {
-        return itemsSer.getItems();
+        return itemsService.getItems();
     }
 }
