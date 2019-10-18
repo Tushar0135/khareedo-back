@@ -29,10 +29,6 @@ public class ItemsService {
         return true;
     }
 
-    public Boolean clear() {
-        itemsRepo.deleteAll();
-        return true;
-    }
     public Set<Items> getSearchedItems(String value){
         ArrayList<Items> items=(ArrayList<Items>) itemsRepo.findAll();
         Set<Items> result=new HashSet<>();

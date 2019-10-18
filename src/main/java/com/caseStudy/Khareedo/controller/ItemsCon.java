@@ -3,7 +3,6 @@ package com.caseStudy.Khareedo.controller;
 import com.caseStudy.Khareedo.model.Items;
 import com.caseStudy.Khareedo.service.ItemsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;

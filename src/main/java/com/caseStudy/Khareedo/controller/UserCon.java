@@ -16,7 +16,6 @@ import java.util.List;
 @RequestMapping("/user")
 public class UserCon {
     private UsersService usersService;
-//    private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
     @Autowired
     public UserCon(UsersService usersService) {
@@ -44,7 +43,6 @@ public class UserCon {
     @GetMapping(path = "/login", produces = "application/json")
     @ResponseBody
     public String loginUser(Principal principal) {
-//        return "true";
         return usersService.login(principal);
     }
 
